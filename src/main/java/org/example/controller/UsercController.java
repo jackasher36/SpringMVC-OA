@@ -3,12 +3,11 @@ package org.example.controller;
 import org.example.dao.UserDao;
 import org.example.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -63,6 +62,24 @@ public class UsercController {
     public String del(@PathVariable("id") String id){
         userDao.delete(id);
         return "redirect:/user";
+    }
+    @RequestMapping("/ajax")
+    public User ajax(RequestEntity requestEntity){
+        System.out.println(requestEntity.getMethod());
+        System.out.println("-----------------------");
+        System.out.println(requestEntity.getUrl());
+        System.out.println("-----------------------");
+        System.out.println(requestEntity.getHeaders());
+        System.out.println("-----------------------");
+        System.out.println(requestEntity.getBody());
+        User user = new User("jack", "jack", 21);
+        return user;
+    }
+
+    @RequestMapping("/ajax/1")
+    @ResponseBody
+    public String ajaxSend(){
+        return "scucessfuul!!!!!!!!!11";
     }
 
 
